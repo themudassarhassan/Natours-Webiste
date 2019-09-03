@@ -15,6 +15,7 @@ const bookingRoute = require("./routes/bookingRoute");
 const AppError = require("./utils/AppError");
 const globalErrorHandler = require("./controllers/errorController");
 
+// Start Expresss app
 const app = express();
 
 app.set("view engine", "ejs");

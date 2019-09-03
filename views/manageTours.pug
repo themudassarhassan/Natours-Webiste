@@ -1,0 +1,61 @@
+extends base
+
+block append head
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/manageStyle.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+
+block content 
+    .container
+      .table-wrapper
+        .table-title
+          .row
+            .col-sm-6
+              h2
+                | Manage 
+                b Tours
+            .col-sm-6
+              a.btn.btn-primary.material-icons(href="/register-tour")
+                i.material-icons &#xE147;
+                span Add New Tour
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th Name
+              th Price
+              th Duration
+              th Difficulty
+              th Action
+          tbody
+
+            each tour in tours
+                tr
+                td= tour.name
+                td= tour.price
+                td= tour.duration
+                td= tour.difficulty
+                td
+                    a.edit(href=`/edit-tour/${tour.id}`, data-toggle="modal")
+                        i.material-icons(data-toggle="tooltip", title="Edit") 
+                    a.delete(href="#deleteEmployeeModal", data-toggle="modal")
+                        i.material-icons(data-toggle="tooltip", title="Delete") 
+            
+    // Delete Modal HTML
+    #deleteEmployeeModal.modal.fade
+      .modal-dialog
+        .modal-content
+          form
+            .modal-header
+              h4.modal-title Delete Employee
+              button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
+            .modal-body
+              p Are you sure you want to delete these Records?
+              p.text-warning
+                small This action cannot be undone.
+            .modal-footer
+              input.btn.btn-default(type="button", data-dismiss="modal", value="Cancel")
+              input.btn.btn-danger(type="submit", value="Delete")

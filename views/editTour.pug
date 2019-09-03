@@ -1,0 +1,155 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+        link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
+        //- link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
+        link(href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css")
+        
+        link(rel='stylesheet' href='/css/editTour.css')
+        title Natours | #{title}
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js")
+        script(src="/js/jquery.formtowizard.js")
+        script.
+            $( function() {
+            var $signupForm = $( '#SignupForm' );
+            $signupForm.validate({errorElement: 'em'});
+            $signupForm.formToWizard({
+            submitButton: 'SaveAccount',
+            nextBtnClass: 'btn btn-primary next',
+            prevBtnClass: 'btn btn-default prev',
+            buttonTag:    'button',
+            validateBeforeNext: function(form, step) {
+            var stepIsValid = true;
+            var validator = form.validate();
+            $(':input', step).each( function(index) {
+            var xy = validator.element(this);
+            stepIsValid = stepIsValid && (typeof xy == 'undefined' || xy);
+            });
+            return stepIsValid;
+            },
+            progress: function (i, count) {
+            $('#progress-complete').width(''+(i/count*100)+'%');
+            }
+            });
+            });
+    body
+        // HEADER
+        header.header
+            nav.nav.nav--tours
+                a.nav__el(href='/') All tours
+            .header__logo
+                img(src='/img/logo-white.png' alt='Natours logo')
+            nav.nav.nav--user
+                if user
+                    a.nav__el.nav__el--logout Log out
+                    a.nav__el(href='/me')
+                        img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
+                        span= user.name.split(' ')[0]
+                else
+                    a.nav__el(href='/login') Log in
+                    a.nav__el.nav__el--cta(href='/signup') Sign up
+        // CONTENT
+
+        h1.text-center(style="margin:50px;") Tour Registeration Wizard
+        form#SignupForm(action="")
+            fieldset.form-horizontal
+                legend Tour information
+                .form-group
+                    label.col-sm-2.control-label(for="name") Tour Name:
+                    .col-sm-4
+                        input#name.form-control(type="text" )
+                    label.col-sm-2.control-label(for="difficulty") Difficulty:
+                    .col-sm-3
+                        select#difficulty.form-control
+                            option(value="difficult") Difficult
+                            option(value="medium") Medium
+                            option(value="easy") Easy
+                .form-group
+                    label.col-sm-2.control-label(for="price") Price:
+                    .col-sm-4
+                        input#price.form-control(type="number" )
+                    label.col-sm-2.control-label(for="duration") Duration in days:
+                    .col-sm-3
+                        input#duration.form-control(type="number")
+                .form-group
+                    label.col-sm-2.control-label(for="maxGroupSize") Max Group Size:
+                    .col-sm-4
+                        input#maxGroupSize.form-control(type="number")
+               
+                    label.col-sm-2.control-label(for="startDate") Start Date:
+                    .col-sm-3
+                        input#startDate.form-control(type="date")                  
+            fieldset
+                legend Company information
+                label(for="CompanyName") Start Location
+                .form-group
+                    label.col-sm-2.control-label Longitute: 
+                    .col-sm-1
+                        input#CompanyName.form-control(type="text" required="")
+                    label.col-sm-2.control-label Latitude: 
+                    .col-sm-2
+                        input#CompanyName.form-control(type="text" required="")
+                .form-group
+                    label(for="Website") Website
+                    input#Website.form-control(type="text")
+                .form-group
+                    label(for="CompanyEmail") CompanyEmail
+                    input#CompanyEmail.form-control(type="text")
+            fieldset.form-horizontal(role="form")
+                legend Billing information
+                .form-group
+                    label.col-sm-2.control-label(for="NameOnCard") Name on Card
+                    .col-sm-10
+                        input#NameOnCard.form-control(type="text")
+                .form-group
+                    label.col-sm-2.control-label(for="CardNumber") Card Number
+                    .col-sm-10
+                        input#CardNumber.form-control(type="text")
+                .form-group
+                    label.col-sm-2.control-label(for="CreditcardMonth") Expiration
+                    .col-sm-10
+                        .row
+                            .col-xs-3
+                                select#CreditcardMonth.form-control.col-sm-2
+                                option(value="1") 1
+                            .col-xs-3
+                                select#CreditcardYear.form-control
+                                    option(value="2009") 2009
+                                    option(value="2010") 2010
+                .form-group
+                    label.col-sm-2.control-label(for="Address1") Address 1
+                    .col-sm-10
+                        input#Address1.form-control(type="text")
+                .form-group
+                    label.col-sm-2.control-label(for="Address2") Address 2
+                    .col-sm-10
+                        input#Address2.form-control(type="text")
+                .form-group
+                    label.col-sm-2.control-label(for="Zip") ZIP
+                    .col-sm-4
+                        input#Zip.form-control(type="text")
+                    label.col-sm-2.control-label(for="Country") Country
+                    .col-sm-4
+                        select#Country.form-control
+                            option(value="CA") Canada
+                            option(value="US") United States of America
+                p
+                     button#SaveAccount.btn.btn-primary.submit Submit form
+
+
+        // FOOTER
+        footer.footer
+            .footer__logo
+                img(src='/img/logo-green.png' alt='Natour logo')
+            ul.footer__nav
+                li: a(href='#') About us
+                li: a(href='#') Download apps
+                li: a(href='#') Become a guide
+                li: a(href='#') Careers
+                li: a(href='#') Contact
+            p.footer__copyright &copy; by Jonas Schmedtmann. Feel free to use this project for your own purposes, EXCEPT producing your own course or tutorials!

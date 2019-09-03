@@ -1,0 +1,21 @@
+extends base
+
+block content
+    main.main
+        .login-form
+            h2.heading-secondary.ma-bt-lg Update User Information
+            form.form.form--user-update
+                input#id(type="hidden", name="id", value= userUpdate.id)
+                .form-group.ma-bt-md
+                    label.form__label(for='name') Full Name
+                    input#name.form__input(type="name", name="name", placeholder="example", value= userUpdate.name required)
+                .form-group.ma-bt-md
+                    label.form__label(for="email") Email Address
+                    input#email.form__input(type="email", name="email", placeholder="you@example.com", value= userUpdate.email required)
+                .form-group.ma-bt-md
+                    label.form__label(for="role") Role
+                    select#role.form__input(name="role")
+                        each role in roles
+                            option(value= role, selected= role == userUpdate.role) #{role}
+                .form__group
+                    button.btn.btn--green.btn--user-update(type="submit") Update

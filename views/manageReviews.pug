@@ -1,0 +1,44 @@
+extends base
+
+block append head
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/manageStyle.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+
+block content 
+    .container
+      .table-wrapper
+        .table-title
+          .row
+            .col-sm-6
+              h2
+                | Manage 
+                b Reviews
+            .col-sm-6
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th Review
+              th Rating
+              th User Name
+              th Tour Name
+              th Date
+              th Action
+          tbody
+
+            each review in reviews
+                tr
+                td= review.review
+                td= review.rating
+                td= review.user.name
+                td= review.tour.name
+                td= review.createdAt
+                td
+                    a.delete(id="deleteRecord"   href="#", data-toggle="modal")
+                        i.material-icons(data-toggle="tooltip", title="Delete",data-model= "reviews", data-id= review.id) 
+            
+    

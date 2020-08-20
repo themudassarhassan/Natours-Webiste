@@ -14,7 +14,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "axios": "^0.19.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bootbox": "^5.3.2",
     "consolidate": "^0.15.1",
     "cookie-parser": "^1.4.4",
